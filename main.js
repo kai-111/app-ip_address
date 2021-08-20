@@ -71,7 +71,22 @@ class IpAddress {
   // Node.js convention is to pass error data as the first argument to a callback.
   // The IAP convention is to pass returned data as the first argument and error
   // data as the second argument to the callback function.
-  return callback(firstIpAddress, callbackError);
+  let ipva4 = firstIpAddress;
+  if(firstIpAddress==null)
+  {
+      firstIpAddress='';
+  }
+  let ipva6 = getIpv4MappedIpv6Address(firstIpAddress);
+  let obj = {
+      ipv4:ipva4,
+      ipv6:ipva6
+  }
+//   console.log(JSON.stringify(obj))
+  // Call the passed callback function.
+  // Node.js convention is to pass error data as the first argument to a callback.
+  // The IAP convention is to pass returned data as the first argument and error
+  // data as the second argument to the callback function.
+  return callback(JSON.stringify(obj), callbackError);
 }
 }
 
